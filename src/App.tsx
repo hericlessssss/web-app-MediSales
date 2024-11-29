@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './stores/useAuthStore';
 import Layout from './components/Layout';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Doctors from './pages/Doctors';
 import Notices from './pages/Notices';
@@ -22,7 +23,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-function App() {
+export default function App() {
   const initialize = useAuthStore((state) => state.initialize);
 
   useEffect(() => {
@@ -33,6 +34,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/"
           element={
@@ -50,5 +52,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;

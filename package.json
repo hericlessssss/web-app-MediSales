@@ -12,11 +12,10 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.39.7",
     "lucide-react": "^0.344.0",
-    "medical-visitation-control": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.22.2",
+    "react-hot-toast": "^2.4.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

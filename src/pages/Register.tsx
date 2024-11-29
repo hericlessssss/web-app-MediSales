@@ -5,11 +5,12 @@ import { useAuthStore } from '../stores/useAuthStore';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn, user } = useAuthStore();
+  const { signUp, user } = useAuthStore();
 
   if (user) {
     return <Navigate to="/" replace />;
@@ -17,13 +18,19 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (password !== confirmPassword) {
+      toast.error('As senhas não coincidem');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      await signIn(email, password);
-      toast.success('Login realizado com sucesso!');
+      await signUp(email, password);
+      toast.success('Conta criada com sucesso! Verifique seu email.');
     } catch (error: any) {
-      toast.error('Erro ao fazer login. Verifique suas credenciais.');
+      toast.error(error.message || 'Erro ao criar conta');
     } finally {
       setIsLoading(false);
     }
@@ -37,9 +44,10 @@ export default function Login() {
             MedVisit
           </h1>
           <h2 className="mt-6 text-center text-xl text-gray-600 dark:text-gray-400">
-            Faça login para acessar o sistema
+            Crie sua conta
           </h2>
         </div>
+        
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <Input
@@ -51,13 +59,24 @@ export default function Login() {
               autoComplete="email"
               placeholder="seu@email.com"
             />
+            
             <Input
               label="Senha"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              autoComplete="current-password"
+              autoComplete="new-password"
+              placeholder="••••••••"
+            />
+
+            <Input
+              label="Confirmar Senha"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              autoComplete="new-password"
               placeholder="••••••••"
             />
           </div>
@@ -67,16 +86,16 @@ export default function Login() {
             className="w-full"
             isLoading={isLoading}
           >
-            Entrar
+            Criar Conta
           </Button>
 
           <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-            Não tem uma conta?{' '}
+            Já tem uma conta?{' '}
             <Link
-              to="/register"
+              to="/login"
               className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300"
             >
-              Registre-se
+              Faça login
             </Link>
           </p>
         </form>
