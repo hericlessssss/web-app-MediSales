@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useAuthStore } from '../stores/useAuthStore';
 import Button from '../components/ui/Button';
@@ -34,7 +34,7 @@ export default function Login() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h1 className="text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-            MedVisit
+            MedSales
           </h1>
           <h2 className="mt-6 text-center text-xl text-gray-600 dark:text-gray-400">
             Faça login para acessar o sistema
@@ -69,16 +69,6 @@ export default function Login() {
           >
             Entrar
           </Button>
-
-          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-            Não tem uma conta?{' '}
-            <Link
-              to="/register"
-              className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300"
-            >
-              Registre-se
-            </Link>
-          </p>
         </form>
       </div>
     </div>

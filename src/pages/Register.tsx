@@ -41,7 +41,7 @@ export default function Register() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h1 className="text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-            MedVisit
+            MedSales
           </h1>
           <h2 className="mt-6 text-center text-xl text-gray-600 dark:text-gray-400">
             Crie sua conta
