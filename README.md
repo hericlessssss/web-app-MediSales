@@ -28,7 +28,7 @@ Este sistema foi desenvolvido para facilitar o controle e gerenciamento de visit
 2. Crie um novo projeto
 3. No SQL Editor, execute o seguinte script para criar as tabelas necessárias:
 
-\`\`\`sql
+```sql
 -- Criar tabela de médicos
 CREATE TABLE medicos (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -72,41 +72,83 @@ CREATE TABLE muralavisos (
   attachments JSONB,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::TEXT, NOW()) NOT NULL
 );
-\`\`\`
+```
 
-### 2. Configuração do Ambiente
+### 2. Configuração da Autenticação no Supabase
+
+O sistema utiliza a autenticação nativa do Supabase. Para configurar:
+
+1. No painel do Supabase, vá para "Authentication" > "Providers"
+
+2. Configure o provedor de Email:
+   - Habilite "Email Auth"
+   - Desabilite "Confirm email" se não quiser confirmação por email
+   - Configure o template de emails (opcional)
+
+3. Configurações de Segurança:
+   - Em "Authentication" > "Policies", configure as políticas de acesso
+   - Recomendado: Adicione políticas RLS (Row Level Security) para proteger os dados
+
+4. Configurações do Projeto:
+   - Copie as credenciais do projeto em "Project Settings" > "API"
+   - Você precisará do:
+     - Project URL
+     - Project API Key (anon/public)
+
+5. Variáveis de Ambiente:
+   ```
+   VITE_SUPABASE_URL=sua-url-do-supabase
+   VITE_SUPABASE_ANON_KEY=sua-chave-anonima-do-supabase
+   ```
+
+6. Fluxo de Autenticação:
+   - Registro: `/register`
+     - Usuário fornece email e senha
+     - Sistema cria conta no Supabase
+     - Se confirmação de email estiver ativada, email é enviado
+
+   - Login: `/login`
+     - Usuário fornece credenciais
+     - Sistema valida com Supabase
+     - Token JWT é gerado e armazenado
+
+   - Proteção de Rotas:
+     - Componente `ProtectedRoute` verifica autenticação
+     - Redireciona para login se não autenticado
+
+### 3. Configuração do Ambiente
 
 1. Clone o repositório:
-\`\`\`bash
+```bash
 git clone <REPO_URL>
 cd medical-visitation-control
-\`\`\`
+```
 
 2. Instale as dependências:
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 3. Copie o arquivo .env.example para .env:
-\`\`\`bash
+```bash
 cp .env.example .env
-\`\`\`
+```
 
 4. Configure as variáveis de ambiente no arquivo .env com suas credenciais do Supabase:
-\`\`\`
+```
 VITE_SUPABASE_URL=sua-url-do-supabase
 VITE_SUPABASE_ANON_KEY=sua-chave-anonima-do-supabase
-\`\`\`
+```
 
-### 3. Executando Localmente
+### 4. Executando Localmente
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 O aplicativo estará disponível em http://localhost:5173
 
-### 4. Publicação no Netlify
+### 5. Publicação no Netlify
 
 1. Faça login no [Netlify](https://www.netlify.com)
 2. Conecte seu repositório
@@ -128,11 +170,11 @@ O aplicativo estará disponível em http://localhost:5173
 ## Contribuindo
 
 1. Fork o projeto
-2. Crie sua Feature Branch (\`git checkout -b feature/AmazingFeature\`)
-3. Commit suas mudanças (\`git commit -m 'Add some AmazingFeature'\`)
-4. Push para a Branch (\`git push origin feature/AmazingFeature\`)
+2. Crie sua Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a Branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
 ## Licença
 
-Distribuído sob a licença MIT. Veja \`LICENSE\` para mais informações.
+Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.

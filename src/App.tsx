@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Doctors from './pages/Doctors';
 import Notices from './pages/Notices';
 import Settings from './pages/Settings';
+import Schedule from './pages/Schedule';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuthStore();
@@ -46,6 +47,7 @@ export default function App() {
           <Route index element={<Dashboard />} />
           <Route path="doctors/*" element={<Doctors />} />
           <Route path="notices/*" element={<Notices />} />
+          <Route path="schedule" element={<Schedule />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>

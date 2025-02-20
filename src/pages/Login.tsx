@@ -23,7 +23,15 @@ export default function Login() {
       await signIn(email, password);
       toast.success('Login realizado com sucesso!');
     } catch (error: any) {
-      toast.error('Erro ao fazer login. Verifique suas credenciais.');
+      // Handle specific error cases
+      if (error.message === 'Invalid login credentials') {
+        toast.error('Email ou senha incorretos');
+      } else if (error.message?.includes('Email not confirmed')) {
+        toast.error('Por favor, confirme seu email antes de fazer login');
+      } else {
+        toast.error('Erro ao fazer login. Tente novamente.');
+      }
+      console.error('Login error:', error);
     } finally {
       setIsLoading(false);
     }

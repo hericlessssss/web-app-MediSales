@@ -13,6 +13,7 @@ export default function Navbar() {
   const navigation = [
     { name: 'Dashboard', href: '/' },
     { name: 'Médicos', href: '/doctors' },
+    { name: 'Agenda', href: '/schedule' },
     { name: 'Avisos', href: '/notices' },
     { name: 'Configurações', href: '/settings' },
   ];
@@ -30,7 +31,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="text-xl font-bold text-primary-600 dark:text-primary-400">
-              MedSales
+              MedVisit
             </Link>
           </div>
 
